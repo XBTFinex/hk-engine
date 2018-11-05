@@ -1,4 +1,4 @@
-Hacking Growth Engine
+Growth Hacking Engine
 =====
 
 hk-engine is used to
@@ -13,3 +13,11 @@ hk-engine is used to
 
 hk-engine is the perfect digital marketing tool for online business to increase their revenue 
 through smart and automated growth hacking.
+
+Conceptualy
+====
+![](concept.jpeg)
+
+License
+====
+No copyright, no license, no bullshit.
