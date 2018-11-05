@@ -11,6 +11,5 @@ hk-engine is used to
     increase customer engagement
     influence customer psycology thru obscure tricks :D
 
-hk-engine is the digital marketing tool for online business increase revenue
-
+hk-engine is the perfect digital marketing tool for online business to increase their revenue 
 through smart and automated growth hacking.
