@@ -58,6 +58,9 @@ describe('User', function() {
   describe('#update', function() {
     it('should update user', function (done) {
         userData.name = userData.name.toUpperCase();
+        userData.lang = 'en-US';
+        userData.location='Cabo Verde';
+
         var req=_.clone(userData);
         delete req.req_token;
 
@@ -70,7 +73,7 @@ describe('User', function() {
             body: JSON.stringify(req)
         }).then(function (Data){
             Data.json().then(function (Resp){
-                if (Resp.name != req.name) {
+                if (!_.isEqual(Resp, req)) {
                     done(Resp);
                 } else {
                     done();
