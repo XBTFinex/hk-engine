@@ -41,7 +41,7 @@ describe('Fields', function() {
   });
 
   describe('#create field', function() {
-    it('should create new field on schema', function(done) {
+    it('should create new field on schema', function (done) {
         fetch('http://127.0.0.1:5000/api/v1/schema/'+schemaData.id+'/fields', {
             method:'POST',
             headers: {'Content-type': 'application/json',
@@ -61,7 +61,7 @@ describe('Fields', function() {
   });
 
   describe('#fetch field', function() {
-    it('should fetch newly created field', function(done) {
+    it('should fetch newly created field', function (done) {
         fetch('http://127.0.0.1:5000/api/v1/schema/'+schemaData.id+'/fields', {
             method:'GET',
             headers: {'Content-type': 'application/json',
@@ -92,7 +92,7 @@ describe('Fields', function() {
 
   describe('#update field', function() {
     fieldData.label = fieldData.label.toUpperCase();
-    it('should update field', function(done) {
+    it('should update field', function (done) {
         fetch('http://127.0.0.1:5000/api/v1/field/'+fieldData.id, {
             method:'PUT',
             headers: {'Content-type': 'application/json',
@@ -113,7 +113,7 @@ describe('Fields', function() {
 
   describe('#delete field', function() {
     fieldData.label = fieldData.label.toUpperCase();
-    it('should delete field', function(done) {
+    it('should delete field', function (done) {
 
         fetch('http://127.0.0.1:5000/api/v1/field/'+fieldData.id, {
             method:'DELETE',
@@ -133,7 +133,6 @@ describe('Fields', function() {
                 });
             })
         });
-
     });
   });
 

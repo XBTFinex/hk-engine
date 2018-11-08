@@ -116,7 +116,6 @@ describe('Schema', function() {
     });
   });
 
-
   describe('#delete', function() {
     schemaData.label = schemaData.label.toUpperCase();
     it('should delete the Schema', function (done) {
