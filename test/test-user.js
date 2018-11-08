@@ -83,7 +83,6 @@ describe('User', function() {
     });
   });
 
-
   describe('#me', function() {
     it('should get the account details', function (done) {
         var req=_.clone(userData);
