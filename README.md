@@ -15,13 +15,20 @@ i am using hk-engine to
 hk-engine is the perfect digital marketing tool for online business to increase their revenue 
 through smart and automated growth hacking.
 
+Getting started
+====
+    npm install
+
 Architecture
+====
+(Soon)
+
+Tools
 ====
 (Soon)
 
 Tests
 ====
-Just run
 
     npm test
 
