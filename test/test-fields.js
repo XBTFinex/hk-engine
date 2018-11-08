@@ -72,7 +72,7 @@ describe('Fields', function() {
                     return O.id == fieldData.id;
                 });
 
-                f.createdAt = f.createdAt.replace(' ', 'T');
+                fieldData.createdAt = f.createdAt;
 
                 if (!f) {
                     done({
@@ -100,7 +100,6 @@ describe('Fields', function() {
             body: JSON.stringify(fieldData)
         }).then(function (Data) {
             Data.json().then(function (Resp) {
-                Resp.createdAt = Resp.createdAt.replace(' ', 'T');
                 if (!_.isEqual(Resp, fieldData)) {
                     done(Resp);
                 } else {
