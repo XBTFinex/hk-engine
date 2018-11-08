@@ -15,6 +15,16 @@ i am using hk-engine to
 hk-engine is the perfect digital marketing tool for online business to increase their revenue 
 through smart and automated growth hacking.
 
+Architecture
+====
+(Soon)
+
+Tests
+====
+Just run
+
+    npm test
+
 Conceptualy
 ====
 ![](concept.jpeg)
