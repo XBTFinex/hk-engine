@@ -85,7 +85,7 @@ describe('User', function() {
 
 
   describe('#me', function() {
-    it('should get my account details', function (done) {
+    it('should get the account details', function (done) {
         var req=_.clone(userData);
         delete req.req_token;
 
@@ -106,6 +106,5 @@ describe('User', function() {
         });
     });
   });
-
 
 });

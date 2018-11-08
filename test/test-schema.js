@@ -87,7 +87,7 @@ describe('Schema', function() {
 
   describe('#all', function() {
     schemaData.label = schemaData.label.toUpperCase();
-    it('the list all Schemas should include the created schema', function (done) {
+    it('should find the created schema on the list', function (done) {
         fetch('http://127.0.0.1:5000/api/v1/schema/', {
             method:'GET',
             headers: {'Content-type': 'application/json',
@@ -143,7 +143,7 @@ describe('Schema', function() {
 
   describe('#all after delete', function() {
     schemaData.label = schemaData.label.toUpperCase();
-    it('the list of all Schemas should NOT include the created schema', function (done) {
+    it('should NOT include the created schema on the list', function (done) {
         fetch('http://127.0.0.1:5000/api/v1/schema/', {
             method:'GET',
             headers: {'Content-type': 'application/json',
