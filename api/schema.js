@@ -21,4 +21,92 @@ function create(token, data) {
     })
 }
 
+function update(token, data) {
+    return new Promise(function (resolve, reject){
+        if (!data.id) {
+            reject({
+                error: "object without id"
+            });
+            return;
+        }
+
+        fetch('http://127.0.0.1:5000/api/v1/schema/'+data.id, {
+            method:'PUT',
+            headers: {'Content-type': 'application/json',
+                     'Authorization': token},
+            body: JSON.stringify(data)
+        }).then(function (Data) {
+            Data.json().then(function (Resp) {
+                if (Resp.id) {
+                    resolve(Resp);
+                } else {
+                    reject(Resp);
+                }
+            }, reject);
+        }, reject);
+    });
+}
+
+function fetch_(token, filter) {
+    return new Promise(function (resolve, reject){
+        filter = filter || {};
+        var url='http://127.0.0.1:5000/api/v1/schema?';
+
+        if (filter.offset) {
+            url += 'offset='+filter.offset+'&';
+        }
+        if (filter.limit) {
+            url += 'limit='+filter.limit+'&';            
+        }
+
+        fetch(url, {
+            method:'GET',
+            headers: {'Content-type': 'application/json',
+                     'Authorization': token},
+        }).then(function (Data) {
+            Data.json().then(function (Resp) {
+                if (Resp.list) {
+                    resolve(Resp);
+                } else {
+                    reject(Resp);
+                }
+            }, reject);
+        }, reject);
+    });
+}
+
+function delete_(token, id) {
+    return new Promise(function (resolve, reject){
+        fetch('http://127.0.0.1:5000/api/v1/schema/'+id, {
+            method:'DELETE',
+            headers: {'Content-type': 'application/json',
+                     'Authorization': token}
+        }).then(function (Data) {
+            resolve(Data);
+        }, reject);
+    });
+}
+
+function byId(token, id) {
+    return new Promise(function (resolve, reject){
+        fetch('http://127.0.0.1:5000/api/v1/schema/'+id, {
+            method: 'GET',
+            headers: {'Content-type': 'application/json',
+                     'Authorization': token},
+        }).then(function (Data){
+            Data.json().then(function (Resp){
+                if (!Resp.id) {
+                    reject(Resp);
+                } else {
+                    resolve(Resp);
+                }
+            });
+        })
+    });
+}
+
 exports.create = create;
+exports.update = update;
+exports.byId = byId;
+exports.delete = delete_;
+exports.fetch = fetch_;

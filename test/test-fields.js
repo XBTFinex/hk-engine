@@ -25,7 +25,6 @@ var fieldData = {
 describe('Fields', function() {
 
   before(function (done) {
-    // runs before all tests in this block
     api.signin(user)
     .then(function (Auth) {
         authData=Auth;

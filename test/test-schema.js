@@ -1,6 +1,7 @@
 const assert = require('assert');
 const fetch=require('node-fetch');
 const api=require('../api/main');
+const schemaApi=require('../api/schema');
 const _=require('underscore');
 
 var user={
@@ -15,7 +16,6 @@ var authData={};
 describe('Schema', function() {
 
   before(function (done) {
-    // runs before all tests in this block
     api.signin(user)
     .then(function (Auth) {
         authData=Auth;        
@@ -27,20 +27,14 @@ describe('Schema', function() {
 
   describe('#new', function() {
     it('should create a new Schema', function (done) {
-        fetch('http://127.0.0.1:5000/api/v1/schema/new', {
-            method:'POST',
-            headers: {'Content-type': 'application/json',
-                     'Authorization': authData.reqToken},
-            body: JSON.stringify(schemaData)
-        }).then(function (Data) {
-            Data.json().then(function (Resp){
-                if (!Resp.id) {
-                    done(Resp);
-                } else {
-                    schemaData = Resp;
-                    done();
-                }
-            });
+        schemaApi.create(authData.reqToken, schemaData)
+        .then(function (Resp) {
+            if (!Resp.id) {
+                done(Resp);
+            } else {
+                schemaData = Resp;
+                done();
+            }
         });
     });
   });
@@ -48,19 +42,13 @@ describe('Schema', function() {
   describe('#update', function() {
     schemaData.label = schemaData.label.toUpperCase();
     it('should update the Schema', function (done) {
-        fetch('http://127.0.0.1:5000/api/v1/schema/'+schemaData.id, {
-            method:'PUT',
-            headers: {'Content-type': 'application/json',
-                     'Authorization': authData.reqToken},
-            body: JSON.stringify(schemaData)
-        }).then(function (Data) {
-            Data.json().then(function (Resp){
-                if (!_.isEqual(Resp, schemaData)) {
-                    done(Resp);
-                } else {
-                    done();
-                }
-            });
+        schemaApi.update(authData.reqToken, schemaData)
+        .then(function (Data) {
+            if (!_.isEqual(Data, schemaData)) {
+                done(Data);
+            } else {
+                done();
+            }
         });
     });
   });
@@ -88,30 +76,26 @@ describe('Schema', function() {
   describe('#all', function() {
     schemaData.label = schemaData.label.toUpperCase();
     it('should find the created schema on the list', function (done) {
-        fetch('http://127.0.0.1:5000/api/v1/schema/', {
-            method:'GET',
-            headers: {'Content-type': 'application/json',
-                     'Authorization': authData.reqToken}
-        }).then(function (Data) {
-            Data.json().then(function (Resp) {
-                var f=_.find(Resp.list, function (O){
-                    return O.id == schemaData.id;
-                });
-
-                f.createdAt = f.createdAt.replace(' ', 'T');
-
-                if (!f) {
-                    done({
-                        error: 'cant find the object', 
-                        schemaData: schemaData,
-                        list: Resp.list
-                    });
-                } else if (!_.isEqual(f, schemaData)) {
-                    done(f);
-                } else {
-                    done();
-                }
+        var filter={};
+        schemaApi.fetch(authData.reqToken, filter)
+        .then(function (Resp) {
+            var f=_.find(Resp.list, function (O){
+                return O.id == schemaData.id;
             });
+
+            f.createdAt = f.createdAt.replace(' ', 'T');
+
+            if (!f) {
+                done({
+                    error: 'cant find the object', 
+                    schemaData: schemaData,
+                    list: Resp.list
+                });
+            } else if (!_.isEqual(f, schemaData)) {
+                done(f);
+            } else {
+                done();
+            }
         });
     });
   });
@@ -119,22 +103,15 @@ describe('Schema', function() {
   describe('#delete', function() {
     schemaData.label = schemaData.label.toUpperCase();
     it('should delete the Schema', function (done) {
-        fetch('http://127.0.0.1:5000/api/v1/schema/'+schemaData.id, {
-            method:'DELETE',
-            headers: {'Content-type': 'application/json',
-                     'Authorization': authData.reqToken}
-        }).then(function (Data) {
-            fetch('http://127.0.0.1:5000/api/v1/schema/'+schemaData.id, {
-                headers: {'Content-type': 'application/json',
-                         'Authorization': authData.reqToken},
-            }).then(function (Data){
-                Data.json().then(function (Resp){
-                    if (Resp.deleted) {
-                        done();
-                    } else {
-                        done(Resp);
-                    }
-                });
+        schemaApi.delete(authData.reqToken, schemaData.id)
+        .then(function (Data) {
+            schemaApi.byId(authData.reqToken, schemaData.id)
+            .then(function (Resp) {
+                if (Resp.deleted) {
+                    done();
+                } else {
+                    done(Resp);
+                }
             })
         });
     });
@@ -143,22 +120,18 @@ describe('Schema', function() {
   describe('#all after delete', function() {
     schemaData.label = schemaData.label.toUpperCase();
     it('should NOT include the created schema on the list', function (done) {
-        fetch('http://127.0.0.1:5000/api/v1/schema/', {
-            method:'GET',
-            headers: {'Content-type': 'application/json',
-                     'Authorization': authData.reqToken}
-        }).then(function (Data) {
-            Data.json().then(function (Resp) {
-                var f=_.find(Resp.list, function (O){
-                    return O.id == schemaData.id;
-                });
-
-                if (!f) {
-                    done();
-                } else {
-                    done(f);
-                }
+        var filter={};
+        schemaApi.fetch(authData.reqToken, filter)
+        .then(function (Resp) {
+            var f=_.find(Resp.list, function (O){
+                return O.id == schemaData.id;
             });
+
+            if (!f) {
+                done();
+            } else {
+                done(f);
+            }
         });
     });
   });
