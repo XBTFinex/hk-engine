@@ -100,7 +100,7 @@ function byId(token, id) {
                 } else {
                     resolve(Resp);
                 }
-            });
+            }, reject);
         })
     });
 }
