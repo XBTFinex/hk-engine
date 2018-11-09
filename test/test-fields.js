@@ -40,7 +40,7 @@ describe('Fields', function() {
     });
   });
 
-  describe('#create field', function() {
+  describe('#create ', function() {
     it('should create new field on schema', function (done) {
         fetch('http://127.0.0.1:5000/api/v1/schema/'+schemaData.id+'/fields', {
             method:'POST',
@@ -60,7 +60,7 @@ describe('Fields', function() {
     });
   });
 
-  describe('#fetch field', function() {
+  describe('#fetch ', function() {
     it('should fetch newly created field', function (done) {
         fetch('http://127.0.0.1:5000/api/v1/schema/'+schemaData.id+'/fields', {
             method:'GET',
@@ -90,7 +90,7 @@ describe('Fields', function() {
     });
   });
 
-  describe('#update field', function() {
+  describe('#update ', function() {
     fieldData.label = fieldData.label.toUpperCase();
     it('should update field', function (done) {
         fetch('http://127.0.0.1:5000/api/v1/field/'+fieldData.id, {
@@ -110,7 +110,7 @@ describe('Fields', function() {
     });
   });
 
-  describe('#delete field', function() {
+  describe('#delete ', function() {
     fieldData.label = fieldData.label.toUpperCase();
     it('should delete field', function (done) {
 
