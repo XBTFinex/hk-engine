@@ -10,7 +10,6 @@ var userData = {
 
 
 describe('User', function() {
-
   describe('#new', function() {
     it('should create a new user', function (done) {
         fetch('http://127.0.0.1:5000/api/v1/user/signup', {

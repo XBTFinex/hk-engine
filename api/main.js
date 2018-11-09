@@ -22,4 +22,19 @@ function login(userData) {
     })
 }
 
+function me(token) {
+    return new Promise(function (resolve, reject) {
+        fetch('http://127.0.0.1:5000/api/v1/user/me', {
+            method:'GET',
+            headers: {'Content-type': 'application/json',
+                     'Authorization': token},
+        }).then(function (Data){
+            Data.json().then(function (Resp) {
+                resolve();
+            }, reject);
+        }, reject);
+    })
+}
+
 exports.signin = login;
+exports.me = me;
