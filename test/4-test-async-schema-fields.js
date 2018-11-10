@@ -50,23 +50,23 @@ var schemaFields = {
     },
     last: {
         label: 'Last Price',
-        type: 'decimal'        
+        type: 'decimal'
     },
     open: {
         type: 'decimal',
-        label: 'Open'        
+        label: 'Open Price'
     },
     close: {
         type: 'decimal',
-        label: 'Close'        
+        label: 'Close Price'
     },
     high: {
         type: 'decimal',
-        label: 'High'        
+        label: 'High Price'
     },
     low: {
         type: 'decimal',
-        label: 'Low'        
+        label: 'Low Price'
     }
 };
 
@@ -99,6 +99,7 @@ describe('Schema with multiple fields', function() {
 
         Promise.all(qu)
         .then(function (respAry) {
+            // verify if each and all has been created
             for (var i = 0; i < respAry.length; i++) {
                 var resp=respAry[i];
                 if (!resp.id) {
@@ -107,10 +108,15 @@ describe('Schema with multiple fields', function() {
                 }
             }
 
+            // compute unique list of cols
+            // if there is duplicates, the list
+            // will be shrunk...
             var cols=_.uniq(respAry.map(function (X){
                 return X.col;
             }));
 
+            // and the size will be diferent here
+            // thus triggering a test fail
             if (cols.length!=fieldsAry.length) {
                 done(respAry);
             } else {
