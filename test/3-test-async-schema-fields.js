@@ -20,40 +20,40 @@ var schemaFields = {
     price: {
         type: 'decimal',
         label: 'Price',
-        isRequired: true
+        required: true
     },
     currency: {
         type: 'string',
         label: 'Currency',
-        isRequired: true
+        required: true
     },
     amount: {
         type: 'decimal',
         label: 'Amount',
         min: 1,
         max: 1000,
-        isRequired: true
+        required: true
     },
     maturity: {
         type: 'date',
         label: 'Maturity',
         pattern: 'DD/MM/YYYY',
-        isRequired: true
+        required: true
     },
     entity: {
         type: 'string',
         label: 'Entity',
-        isRequired: true
+        required: true
     },
     yield: {
         type: 'decimal',
         label: 'Yield',
-        isRequired: true
+        required: true
     },
     description: {
         type: 'string',
         label: 'Decimal',
-        isRequired: true
+        required: true
     },
     last: {
         label: 'Last Price',
@@ -129,7 +129,6 @@ describe('Schema with multiple fields', function() {
             } else {
                 done();
             }
-
         }, function (Err) {
             done(Err);
         });
