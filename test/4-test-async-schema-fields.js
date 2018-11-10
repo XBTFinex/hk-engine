@@ -19,34 +19,41 @@ var schemaData = {
 var schemaFields = {
     price: {
         type: 'decimal',
-        label: 'Price'
+        label: 'Price',
+        isRequired: true
     },
     currency: {
         type: 'string',
-        label: 'Currency'
+        label: 'Currency',
+        isRequired: true
     },
     amount: {
         type: 'decimal',
         label: 'Amount',
         min: 1,
-        max: 1000
+        max: 1000,
+        isRequired: true
     },
     maturity: {
-        type: 'string',
+        type: 'date',
         label: 'Maturity',
-        format: 'DD/MM/YYYY'
+        pattern: 'DD/MM/YYYY',
+        isRequired: true
     },
     entity: {
         type: 'string',
-        label: 'Entity'
+        label: 'Entity',
+        isRequired: true
     },
     yield: {
         type: 'decimal',
-        label: 'Yield'
+        label: 'Yield',
+        isRequired: true
     },
     description: {
         type: 'string',
-        label: 'Decimal'
+        label: 'Decimal',
+        isRequired: true
     },
     last: {
         label: 'Last Price',
