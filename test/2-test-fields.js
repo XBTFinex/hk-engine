@@ -3,6 +3,7 @@ const fetch=require('node-fetch');
 const _=require('underscore');
 const api=require('../api/main');
 const schema=require('../api/schema');
+const fieldAPI=require('../api/field');
 
 var authData = {
 };
@@ -41,20 +42,14 @@ describe('Fields', function() {
 
   describe('#create ', function() {
     it('should create new field on schema', function (done) {
-        fetch('http://127.0.0.1:5000/api/v1/schema/'+schemaData.id+'/fields', {
-            method:'POST',
-            headers: {'Content-type': 'application/json',
-                     'Authorization': authData.reqToken},
-            body: JSON.stringify(fieldData)
-        }).then(function (Data) {
-            Data.json().then(function (Resp){
-                if (!Resp.id) {
-                    done(Resp);
-                } else {
-                    fieldData = Resp;
-                    done();
-                }
-            });
+        fieldAPI.create(authData.reqToken, fieldData)
+        .then(function (Resp) {
+            if (!Resp.id) {
+                done(Resp);
+            } else {
+                fieldData = Resp;
+                done();
+            }
         });
     });
   });

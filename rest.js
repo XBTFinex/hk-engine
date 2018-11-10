@@ -72,6 +72,10 @@ function main(auth) {
         url += 'offset='+args.offset+'&';
     }
 
+    if (args.fields) {
+        url += 'fields='+args.fields+'&';
+    }
+
     if (args.token) {
         token=args.token;
     }
@@ -93,6 +97,8 @@ function main(auth) {
     if (args.method!='GET' && args.body) {
         req.body = args.body;
     }
+
+    console.info('%s %s', method, url);
 
     fetch(url, req)
     .then(function (Data){
