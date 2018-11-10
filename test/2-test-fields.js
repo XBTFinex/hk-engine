@@ -109,7 +109,7 @@ describe('Fields', function() {
     });
   });
 
-  describe('#delete ', function() {
+  describe('#delete', function() {
     fieldData.label = fieldData.label.toUpperCase();
     it('should delete field', function (done) {
 

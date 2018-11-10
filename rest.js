@@ -6,15 +6,13 @@ const _=require('underscore');
 const fs = require('fs');
 const utils = require('./utils');
 
+const TOKEN_FILE='.app-token';
 const user = {
     email: 'com.ayrton@gmail.com',
     password: 'Password01'
 };
 
-const TOKEN_FILE='.app-token';
-
-
-fs.readFile(TOKEN_FILE, 'utf-8' ,function(err, buf) {
+fs.readFile(TOKEN_FILE, 'utf-8' ,function (err, buf) {
     var content=buf;
     if (!content) {
         loginAndSaveToken()
@@ -27,6 +25,7 @@ fs.readFile(TOKEN_FILE, 'utf-8' ,function(err, buf) {
         .then(function(){
             main(auth);
         }, function (err) {
+            console.log('[WARN] Bad token. renewing');
             loginAndSaveToken()
             .then(function (auth){
                 main(auth);
@@ -44,20 +43,34 @@ function loginAndSaveToken() {
                     console.log('[ERROR] Could not write to file');
                     console.log('[ERROR] %o', err);
                     process.exit(1);
-                    reject();
                 }
+
                 console.log("[INFO] saved token.");
                 resolve(auth);
             }, reject);
-        });
+        }, reject);
     })
 }
 
 function main(auth) {
     var args=utils.parseArguments();
-    var url='http://127.0.0.1:5000/api/v1/'+process.argv[2];
+    var endpoint='http://127.0.0.1:5000/api/v1/';
+
+    if (args.endpoint) {
+        endpoint=args.endpoint;
+    }
+
+    var url=endpoint+process.argv[2]+'?';
     var method='GET';
     var token=auth.reqToken;
+
+    if (args.limit) {
+        url += 'limit='+args.limit+'&';
+    }
+
+    if (args.offset) {
+        url += 'offset='+args.offset+'&';
+    }
 
     if (args.token) {
         token=args.token;
@@ -67,6 +80,8 @@ function main(auth) {
         method=args.method;
     }
 
+    method = method.toUpperCase();
+
     var req={
         method: method,
         headers: {
@@ -75,11 +90,9 @@ function main(auth) {
         }
     };
 
-    if (args.method != 'GET' && args.body) {
+    if (args.method!='GET' && args.body) {
         req.body = args.body;
     }
-
-    console.info("[%s] %s", method.toUpperCase(), url);
 
     fetch(url, req)
     .then(function (Data){
