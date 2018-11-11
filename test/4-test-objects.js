@@ -33,9 +33,10 @@ var schemaFields = {
     price: {
         type: 'decimal',
         label: 'Price',
-        min: 1,
+        min: 0.00000001,
         max: 10000,
-        orderX: 3
+        orderX: 3,
+        scale: 8
     },
     circulation: {
         type: 'decimal',
@@ -50,6 +51,12 @@ var schemaFields = {
         defaultVal: '12'
     },
 };
+
+var objects = [
+    null, 
+    null, 
+    null
+];
 
 describe('Object', function() {
     // XXX: what a mess, find a way to fix this
@@ -99,6 +106,7 @@ describe('Object', function() {
                 if (!_.isEqual(Resp.fields, obj.fields)) {
                     done(Resp);
                 } else {
+                    objects[0]=Resp;
                     done();
                 }
             }, done);
@@ -313,19 +321,64 @@ describe('Object', function() {
                 fields: {}
             };
 
-            obj.fields[schemaFields.name.col]='Bitcoin';
-            obj.fields[schemaFields.ticker.col]='BTC';
-            obj.fields[schemaFields.price.col]='6542.10';
-            obj.fields[schemaFields.circulation.col]='17923212.89';
+            obj.fields[schemaFields.name.col]='Ripple';
+            obj.fields[schemaFields.ticker.col]='XRP';
+            obj.fields[schemaFields.price.col]='0.502894';
+            obj.fields[schemaFields.circulation.col]='40205508733';
 
             schemaAPI.addObject(authData.reqToken, obj)
             .then(function (Resp) {
                 if (Resp.fields[schemaFields.patt.col]!=schemaFields.patt.defaultVal) {
                     done(Resp);
                 } else {
+                    objects[1]=Resp;
                     done();
                 }
             }, done);
         });
     });
+
+    // describe('#update object', function() {
+    //     it('should update object', function(done) {
+    //         var obj = {
+    //             schemaId: schemaData.id,
+    //             fields: {}
+    //         };
+
+    //         obj.fields[schemaFields.name.col]='Bitcoin';
+    //         obj.fields[schemaFields.ticker.col]='BTC';
+    //         obj.fields[schemaFields.price.col]='6542.10';
+    //         obj.fields[schemaFields.circulation.col]='17923212.89';
+
+    //         schemaAPI.addObject(authData.reqToken, obj)
+    //         .then(function (Resp) {
+    //             if (Resp.fields[schemaFields.patt.col]!=schemaFields.patt.defaultVal) {
+    //                 done(Resp);
+    //             } else {
+    //                 done();
+    //             }
+    //         }, done);
+    //     });
+
+    //     it('should fail update with invalid field', function(done) {
+    //         var obj = {
+    //             schemaId: schemaData.id,
+    //             fields: {}
+    //         };
+
+    //         obj.fields[schemaFields.name.col]='Bitcoin';
+    //         obj.fields[schemaFields.ticker.col]='BTC';
+    //         obj.fields[schemaFields.price.col]='6542.10';
+    //         obj.fields[schemaFields.circulation.col]='17923212.89';
+
+    //         schemaAPI.addObject(authData.reqToken, obj)
+    //         .then(function (Resp) {
+    //             if (Resp.fields[schemaFields.patt.col]!=schemaFields.patt.defaultVal) {
+    //                 done(Resp);
+    //             } else {
+    //                 done();
+    //             }
+    //         }, done);
+    //     });
+    // });
 });

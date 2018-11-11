@@ -100,6 +100,8 @@ describe('Schema with multiple fields', function() {
             return obj;
         });
 
+        // asynchronously create fields
+        // to test the reliability of the system
         var qu = fieldsAry.map(function (F) {
             return fieldAPI.create(authData.reqToken, F);
         });
@@ -129,9 +131,7 @@ describe('Schema with multiple fields', function() {
             } else {
                 done();
             }
-        }, function (Err) {
-            done(Err);
-        });
+        }, done);
     });
   });
 });
