@@ -46,7 +46,8 @@ var schemaFields = {
     patt: {
         type: 'string',
         label: 'Patt',
-        pattern: '\d\d'
+        pattern: '\\d\\d',
+        defaultVal: '12'
     },
 };
 
@@ -94,6 +95,7 @@ describe('Object', function() {
 
             schemaAPI.addObject(authData.reqToken, obj)
             .then(function (Resp) {
+                obj.fields[schemaFields.patt.col] = Resp.fields[schemaFields.patt.col];
                 if (!_.isEqual(Resp.fields, obj.fields)) {
                     done(Resp);
                 } else {
@@ -111,7 +113,6 @@ describe('Object', function() {
             };
 
             // name is required
-            // obj.fields[schemaFields.name.col]='Bitcoin';
             obj.fields[schemaFields.ticker.col]='BTC';
             obj.fields[schemaFields.price.col]='6542.10';
             obj.fields[schemaFields.circulation.col]='17923212.89';
@@ -136,7 +137,6 @@ describe('Object', function() {
                 fields: {}
             };
 
-            // name is required
             obj.fields[schemaFields.name.col]='    ';
             obj.fields[schemaFields.ticker.col]='BTC';
             obj.fields[schemaFields.price.col]='6542.10';
@@ -303,6 +303,29 @@ describe('Object', function() {
                     done(Resp);
                 }                
             });
+        });
+    });
+
+    describe('#create object', function() {
+        it('should fill fields with default value', function(done) {
+            var obj = {
+                schemaId: schemaData.id,
+                fields: {}
+            };
+
+            obj.fields[schemaFields.name.col]='Bitcoin';
+            obj.fields[schemaFields.ticker.col]='BTC';
+            obj.fields[schemaFields.price.col]='6542.10';
+            obj.fields[schemaFields.circulation.col]='17923212.89';
+
+            schemaAPI.addObject(authData.reqToken, obj)
+            .then(function (Resp) {
+                if (Resp.fields[schemaFields.patt.col]!=schemaFields.patt.defaultVal) {
+                    done(Resp);
+                } else {
+                    done();
+                }
+            }, done);
         });
     });
 });
