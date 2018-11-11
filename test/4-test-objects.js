@@ -21,6 +21,7 @@ var schemaFields = {
         type: 'string',
         label: 'Name',
         required: true,
+        min: 5,
         orderX: 1
     },
     ticker: {
@@ -32,7 +33,8 @@ var schemaFields = {
     price: {
         type: 'decimal',
         label: 'Price',
-        required: true,
+        min: 1,
+        max: 10000,
         orderX: 3
     },
     circulation: {
@@ -40,6 +42,11 @@ var schemaFields = {
         label: 'Amount in circulation',
         min: 1,
         orderX: 4
+    },
+    patt: {
+        type: 'string',
+        label: 'Patt',
+        pattern: '\d\d'
     },
 };
 
@@ -96,4 +103,206 @@ describe('Object', function() {
         });
     });
 
+    describe('#create invalid object', function() {
+        it('should fail on create object without required field', function(done) {
+            var obj = {
+                schemaId: schemaData.id,
+                fields: {}
+            };
+
+            // name is required
+            // obj.fields[schemaFields.name.col]='Bitcoin';
+            obj.fields[schemaFields.ticker.col]='BTC';
+            obj.fields[schemaFields.price.col]='6542.10';
+            obj.fields[schemaFields.circulation.col]='17923212.89';
+
+            schemaAPI.addObject(authData.reqToken, obj)
+            .then(function (Resp) {
+                done(Resp);
+            }, function (Resp) {
+                var err=Resp.errors;
+                var col=schemaFields.name.col;
+                if (err&&err.length>0&&err[0]=='Name['+col+'] is mandatory') {
+                    done();
+                } else {
+                    done(Resp);
+                }                
+            });
+        });
+
+        it('should fail on create object with empty required field', function(done) {
+            var obj = {
+                schemaId: schemaData.id,
+                fields: {}
+            };
+
+            // name is required
+            obj.fields[schemaFields.name.col]='    ';
+            obj.fields[schemaFields.ticker.col]='BTC';
+            obj.fields[schemaFields.price.col]='6542.10';
+            obj.fields[schemaFields.circulation.col]='17923212.89';
+
+            schemaAPI.addObject(authData.reqToken, obj)
+            .then(function (Resp) {
+                done(Resp);
+            }, function (Resp) {
+                var err=Resp.errors;
+                var col=schemaFields.name.col;
+                var col_name=schemaFields.name.label;
+                var msg_err = col_name+'['+col+'] must be within range ['+schemaFields.name.min+',]';
+                if (err&&err.length>0&&err[0]==msg_err) {
+                    done();
+                } else {
+                    done(Resp);
+                }                
+            });
+        });
+
+        it('should fail on create object with invalid decimal', function(done) {
+            var obj = {
+                schemaId: schemaData.id,
+                fields: {}
+            };
+
+            // name is required
+            obj.fields[schemaFields.name.col]='Ethereum';
+            obj.fields[schemaFields.ticker.col]='ETH';
+            obj.fields[schemaFields.price.col]='6542.';
+            obj.fields[schemaFields.circulation.col]='100.89';
+
+            schemaAPI.addObject(authData.reqToken, obj)
+            .then(function (Resp) {
+                done(Resp);
+            }, function (Resp) {
+                var err=Resp.errors;
+                var col=schemaFields.price.col;
+                var col_name=schemaFields.price.label;
+                var msg_err = col_name+'['+col+'] is not a valid decimal';
+                if (err&&err.length>0&&err[0]==msg_err) {
+                    done();
+                } else {
+                    done(Resp);
+                }                
+            });
+        });
+
+        it('should fail on create object with invalid decimal', function(done) {
+            var obj = {
+                schemaId: schemaData.id,
+                fields: {}
+            };
+
+            // name is required
+            obj.fields[schemaFields.name.col]='Ethereum';
+            obj.fields[schemaFields.ticker.col]='ETH';
+            obj.fields[schemaFields.price.col]='6542.99';
+            obj.fields[schemaFields.circulation.col]='AA';
+
+            schemaAPI.addObject(authData.reqToken, obj)
+            .then(function (Resp) {
+                done(Resp);
+            }, function (Resp) {
+                var err=Resp.errors;
+                var col=schemaFields.circulation.col;
+                var col_name=schemaFields.circulation.label;
+                var msg_err = col_name+'['+col+'] is not a valid decimal';
+                if (err&&err.length>0&&err[0]==msg_err) {
+                    done();
+                } else {
+                    done(Resp);
+                }                
+            });
+        });
+
+        it('should fail on create object with numerical field outside range', function(done) {
+            var obj = {
+                schemaId: schemaData.id,
+                fields: {}
+            };
+
+            // name is required
+            obj.fields[schemaFields.name.col]='Ethereum';
+            obj.fields[schemaFields.ticker.col]='ETH';
+            obj.fields[schemaFields.price.col]='65942.99';
+            obj.fields[schemaFields.circulation.col]='1000';
+
+            schemaAPI.addObject(authData.reqToken, obj)
+            .then(function (Resp) {
+                done(Resp);
+            }, function (Resp) {
+                var err=Resp.errors;
+                var col=schemaFields.price.col;
+                var col_name=schemaFields.price.label;
+                var msg_err = col_name+'['+col+'] must be within range ['+
+                    schemaFields.price.min+','+
+                    schemaFields.price.max+']';
+
+                if (err&&err.length>0&&err[0]==msg_err) {
+                    done();
+                } else {
+                    done(Resp);
+                }                
+            });
+        });
+
+        it('should fail on create object with string field outside range', function(done) {
+            var obj = {
+                schemaId: schemaData.id,
+                fields: {}
+            };
+
+            // name is required
+            obj.fields[schemaFields.name.col]='Et';
+            obj.fields[schemaFields.ticker.col]='ETH';
+            obj.fields[schemaFields.price.col]='642.99';
+            obj.fields[schemaFields.circulation.col]='1000';
+
+            schemaAPI.addObject(authData.reqToken, obj)
+            .then(function (Resp) {
+                done(Resp);
+            }, function (Resp) {
+                var err=Resp.errors;
+                var col=schemaFields.name.col;
+                var col_name=schemaFields.name.label;
+                var msg_err = col_name+'['+col+'] must be within range ['+
+                    schemaFields.name.min+',]';
+
+                if (err&&err.length>0&&err[0]==msg_err) {
+                    done();
+                } else {
+                    done(Resp);
+                }                
+            });
+        });
+
+        it('should fail on create object with invalid pattern', function(done) {
+            var obj = {
+                schemaId: schemaData.id,
+                fields: {}
+            };
+
+            // name is required
+            obj.fields[schemaFields.name.col]='Stellar Lumens';
+            obj.fields[schemaFields.ticker.col]='XLM';
+            obj.fields[schemaFields.price.col]='642.99';
+            obj.fields[schemaFields.circulation.col]='1000';
+            obj.fields[schemaFields.patt.col]='1';
+
+            schemaAPI.addObject(authData.reqToken, obj)
+            .then(function (Resp) {
+                done(Resp);
+            }, function (Resp) {
+                var err=Resp.errors;
+                var col=schemaFields.patt.col;
+                var col_name=schemaFields.patt.label;
+                var msg_err = col_name+'['+col+'] is not a valid '+schemaFields.patt.type;
+
+                if (err&&err.length>0&&err[0]==msg_err) {
+                    done();
+                } else {
+                    done(Resp);
+                }                
+            });
+        });
+    });
 });
