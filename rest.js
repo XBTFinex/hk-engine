@@ -7,6 +7,7 @@ const fs = require('fs');
 const utils = require('./utils');
 
 const TOKEN_FILE='.app-token';
+
 const user = {
     email: 'com.ayrton@gmail.com',
     password: 'Password01'
