@@ -18,61 +18,61 @@ var schemaData = {
 
 var schemaFields = {
     price: {
-        type: 'decimal',
+        type: fieldAPI.TYPE.DECIMAL,
         label: 'Price',
         required: true
     },
     currency: {
-        type: 'string',
+        type: fieldAPI.TYPE.STRING,
         label: 'Currency',
         required: true
     },
     amount: {
-        type: 'decimal',
+        type: fieldAPI.TYPE.DECIMAL,
         label: 'Amount',
         min: 1,
         max: 1000,
         required: true
     },
     maturity: {
-        type: 'date',
+        type: fieldAPI.TYPE.DATE,
         label: 'Maturity',
         pattern: 'DD/MM/YYYY',
         required: true
     },
     entity: {
-        type: 'string',
+        type: fieldAPI.TYPE.STRING,
         label: 'Entity',
         required: true
     },
     yield: {
-        type: 'decimal',
+        type: fieldAPI.TYPE.DECIMAL,
         label: 'Yield',
         required: true
     },
     description: {
-        type: 'string',
+        type: fieldAPI.TYPE.STRING,
         label: 'Decimal',
         required: true
     },
     last: {
-        label: 'Last Price',
-        type: 'decimal'
+        type: fieldAPI.TYPE.DECIMAL,
+        label: 'Last Price'
     },
     open: {
-        type: 'decimal',
+        type: fieldAPI.TYPE.DECIMAL,
         label: 'Open Price'
     },
     close: {
-        type: 'decimal',
+        type: fieldAPI.TYPE.DECIMAL,
         label: 'Close Price'
     },
     high: {
-        type: 'decimal',
+        type: fieldAPI.TYPE.DECIMAL,
         label: 'High Price'
     },
     low: {
-        type: 'decimal',
+        type: fieldAPI.TYPE.DECIMAL,
         label: 'Low Price'
     }
 };

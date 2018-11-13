@@ -5,7 +5,8 @@ const _=require('underscore');
 var userData = {
     email: 'com.ayrton@gmail.com',
     password: 'Password01',
-    name: 'Ayrton Gomes'
+    name: 'Ayrton Gomes',
+    org: 'xbt/2987cef990064470'
 };
 
 

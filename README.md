@@ -36,6 +36,16 @@ Conceptualy
 ====
 ![](concept.jpeg)
 
+Research
+===
+* [sap machine-learning](https://developers.sap.com/topics/machine-learning.html#details/cjma26n0zd51s0932uoh0h452)
+
+* [sap predictive-analytics](https://www.sap.com/products/predictive-analytics.html)
+
+* [sap openui5](https://openui5.hana.ondemand.com/#/sample/sap.ui.layout.sample.DynamicSideContent/preview)
+
+* [SAP/cloud-commerce-spartacus-storefront](https://github.com/SAP/cloud-commerce-spartacus-storefront)
+
 License
 ====
 No copyright, no license, no bullshit.
