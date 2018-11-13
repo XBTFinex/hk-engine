@@ -4,6 +4,7 @@ const _=require('underscore');
 const api=require('../api/main');
 const schemaAPI=require('../api/schema');
 const fieldAPI=require('../api/field');
+const objAPI=require('../api/object');
 const decimals=require('../api/decimals');
 
 var authData = {};
@@ -90,7 +91,7 @@ describe('Object', function() {
     });
 
     describe('#create object', function() {
-        it('should create objects', function(done) {
+        it('should create object', function(done) {
             var obj = {
                 schemaId: schemaData.id,
                 fields: {}
@@ -108,6 +109,29 @@ describe('Object', function() {
                     done(Resp);
                 } else {
                     objects[0]=Resp;
+                    done();
+                }
+            }, done);
+        });
+
+        it('should create another object', function(done) {
+            var obj = {
+                schemaId: schemaData.id,
+                fields: {}
+            };
+
+            obj.fields[schemaFields.name.col]='Bitshares';
+            obj.fields[schemaFields.ticker.col]='BTS';
+            obj.fields[schemaFields.price.col]='0.00342';
+            obj.fields[schemaFields.circulation.col]='150000000';
+
+            schemaAPI.addObject(authData.reqToken, obj)
+            .then(function (Resp) {
+                obj.fields[schemaFields.patt.col] = Resp.fields[schemaFields.patt.col];
+                if (!_.isEqual(Resp.fields, obj.fields)) {
+                    done(Resp);
+                } else {
+                    objects[1]=Resp;
                     done();
                 }
             }, done);
@@ -344,47 +368,47 @@ describe('Object', function() {
         });
     });
 
-    // describe('#update object', function() {
-    //     it('should update object', function(done) {
-    //         var obj = {
-    //             schemaId: schemaData.id,
-    //             fields: {}
-    //         };
+    describe('#update object', function() {
+        it('should update object', function(done) {
+            var obj=objects[0];
+            obj.fields[schemaFields.name.col]='BITCOIN';
+            obj.fields[schemaFields.price.col]='6500.10';
 
-    //         obj.fields[schemaFields.name.col]='Bitcoin';
-    //         obj.fields[schemaFields.ticker.col]='BTC';
-    //         obj.fields[schemaFields.price.col]='6542.10';
-    //         obj.fields[schemaFields.circulation.col]='17923212.89';
+            objAPI.update(authData.reqToken, obj)
+            .then(function (Resp_) {
+                objAPI.byId(authData.reqToken, Resp_.id)
+                .then(function (Resp){                
+                    if (!_.isEqual(Resp, obj)) {
+                        done({
+                            expected: obj,
+                            got: Resp
+                        });
+                    } else {
+                        done();
+                    }
+                }, done)
+            }, done);
+        });
 
-    //         schemaAPI.addObject(authData.reqToken, obj)
-    //         .then(function (Resp) {
-    //             if (Resp.fields[schemaFields.patt.col]!=schemaFields.patt.defaultVal) {
-    //                 done(Resp);
-    //             } else {
-    //                 done();
-    //             }
-    //         }, done);
-    //     });
+        it('should fail update with invalid field', function(done) {
+            var obj = {
+                schemaId: schemaData.id,
+                fields: {}
+            };
 
-    //     it('should fail update with invalid field', function(done) {
-    //         var obj = {
-    //             schemaId: schemaData.id,
-    //             fields: {}
-    //         };
+            obj.fields[schemaFields.name.col]='Bitcoin';
+            obj.fields[schemaFields.ticker.col]='BTC';
+            obj.fields[schemaFields.price.col]='6542.10';
+            obj.fields[schemaFields.circulation.col]='17923212.89';
 
-    //         obj.fields[schemaFields.name.col]='Bitcoin';
-    //         obj.fields[schemaFields.ticker.col]='BTC';
-    //         obj.fields[schemaFields.price.col]='6542.10';
-    //         obj.fields[schemaFields.circulation.col]='17923212.89';
-
-    //         schemaAPI.addObject(authData.reqToken, obj)
-    //         .then(function (Resp) {
-    //             if (Resp.fields[schemaFields.patt.col]!=schemaFields.patt.defaultVal) {
-    //                 done(Resp);
-    //             } else {
-    //                 done();
-    //             }
-    //         }, done);
-    //     });
-    // });
+            schemaAPI.addObject(authData.reqToken, obj)
+            .then(function (Resp) {
+                if (Resp.fields[schemaFields.patt.col]!=schemaFields.patt.defaultVal) {
+                    done(Resp);
+                } else {
+                    done();
+                }
+            }, done);
+        });
+    });
 });
