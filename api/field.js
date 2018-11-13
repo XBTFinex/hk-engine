@@ -38,7 +38,7 @@ function create(token, data) {
                      'Authorization': token},
             body: JSON.stringify(data)
         }).then(function (Data) {
-            Data.json().then(function (Resp){
+            Data.json().then(function (Resp) {
                 if (!Resp.id) {
                     reject(Resp);
                 } else {
