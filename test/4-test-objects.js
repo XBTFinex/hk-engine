@@ -4,6 +4,7 @@ const _=require('underscore');
 const api=require('../api/main');
 const schemaAPI=require('../api/schema');
 const fieldAPI=require('../api/field');
+const decimals=require('../api/decimals');
 
 var authData = {};
 
@@ -241,14 +242,19 @@ describe('Object', function() {
                 var err=Resp.errors;
                 var col=schemaFields.price.col;
                 var col_name=schemaFields.price.label;
-                var msg_err = col_name+'['+col+'] must be within range ['+
-                    schemaFields.price.min+','+
-                    schemaFields.price.max+']';
+                var minf=decimals.format(schemaFields.price.min, schemaFields.price.scale);
+                var maxf=decimals.format(schemaFields.price.max, schemaFields.price.scale);
+
+                var msg_err = col_name+'['+col+'] must be within range ['+minf
+                    +':'+maxf+']';
 
                 if (err&&err.length>0&&err[0]==msg_err) {
                     done();
                 } else {
-                    done(Resp);
+                    done({
+                        expected: msg_err,
+                        got: Resp
+                    });
                 }                
             });
         });
