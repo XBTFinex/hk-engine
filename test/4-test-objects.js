@@ -18,20 +18,20 @@ var schemaData = {
 
 var schemaFields = {
     name: {
-        type: 'string',
+        type: fieldAPI.TYPE.STRING,
         label: 'Name',
         required: true,
         min: 5,
         orderX: 1
     },
     ticker: {
-        type: 'string',
+        type: fieldAPI.TYPE.STRING,
         label: 'Ticker',
         required: true,
         orderX: 2
     },
     price: {
-        type: 'decimal',
+        type: fieldAPI.TYPE.DECIMAL,
         label: 'Price',
         min: 0.00000001,
         max: 10000,
@@ -39,13 +39,13 @@ var schemaFields = {
         scale: 8
     },
     circulation: {
-        type: 'decimal',
+        type: fieldAPI.TYPE.DECIMAL,
         label: 'Amount in circulation',
         min: 1,
         orderX: 4
     },
     patt: {
-        type: 'string',
+        type: fieldAPI.TYPE.STRING,
         label: 'Patt',
         pattern: '\\d\\d',
         defaultVal: '12'
@@ -157,7 +157,7 @@ describe('Object', function() {
                 var err=Resp.errors;
                 var col=schemaFields.name.col;
                 var col_name=schemaFields.name.label;
-                var msg_err = col_name+'['+col+'] must be within range ['+schemaFields.name.min+',]';
+                var msg_err = col_name+'['+col+'] must contain at least '+schemaFields.name.min+' characters';
                 if (err&&err.length>0&&err[0]==msg_err) {
                     done();
                 } else {
@@ -272,8 +272,8 @@ describe('Object', function() {
                 var err=Resp.errors;
                 var col=schemaFields.name.col;
                 var col_name=schemaFields.name.label;
-                var msg_err = col_name+'['+col+'] must be within range ['+
-                    schemaFields.name.min+',]';
+                var msg_err = col_name+'['+col+'] must contain at least '+
+                    schemaFields.name.min+' characters';
 
                 if (err&&err.length>0&&err[0]==msg_err) {
                     done();

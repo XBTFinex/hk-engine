@@ -2,6 +2,25 @@ const fetch=require('node-fetch');
 const moment=require('moment');
 const _=require('underscore');
 
+// public static final String STRING="string";
+// public static final String DECIMAL="decimal";
+// public static final String INTEGER="integer";
+// public static final String DATE="date";
+// public static final String FORMULA="formula";
+// public static final String JSON_HTTP_FIELD="json_http_field";
+// public static final String XML_HTTP_FIELD="xml_http_field";
+// public static final String CURRENCY="currency";
+
+const TYPES ={
+    STRING: 'string',
+    DECIMAL: 'decimal',
+    INTEGER: 'integer',
+    DATE: 'date',
+    FORMULA: 'formula',
+    JSON_HTTP_FIELD: 'json_http_field',
+    XML_HTTP_FIELD: 'xml_http_field',
+    CURRENCY: 'currency'
+};
 
 function create(token, data) {
     return new Promise(function (resolve, reject) {
@@ -30,3 +49,4 @@ function create(token, data) {
 }
 
 exports.create = create;
+exports.TYPE = TYPES;
