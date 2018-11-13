@@ -37,8 +37,7 @@ var schemaFields = {
         label: 'Price',
         min: 0.00000001,
         max: 10000,
-        orderX: 3,
-        scale: 8
+        orderX: 3
     },
     circulation: {
         type: fieldAPI.TYPE.DECIMAL,
@@ -122,7 +121,7 @@ describe('Object', function() {
 
             obj.fields[schemaFields.name.col]='Bitshares';
             obj.fields[schemaFields.ticker.col]='BTS';
-            obj.fields[schemaFields.price.col]='0.00342';
+            obj.fields[schemaFields.price.col]='0.34';
             obj.fields[schemaFields.circulation.col]='150000000';
 
             schemaAPI.addObject(authData.reqToken, obj)
@@ -353,7 +352,7 @@ describe('Object', function() {
 
             obj.fields[schemaFields.name.col]='Ripple';
             obj.fields[schemaFields.ticker.col]='XRP';
-            obj.fields[schemaFields.price.col]='0.502894';
+            obj.fields[schemaFields.price.col]='0.50';
             obj.fields[schemaFields.circulation.col]='40205508733';
 
             schemaAPI.addObject(authData.reqToken, obj)
@@ -377,7 +376,8 @@ describe('Object', function() {
             objAPI.update(authData.reqToken, obj)
             .then(function (Resp_) {
                 objAPI.byId(authData.reqToken, Resp_.id)
-                .then(function (Resp){                
+                .then(function (Resp) {
+                    obj.createdAt = Resp.createdAt;      
                     if (!_.isEqual(Resp, obj)) {
                         done({
                             expected: obj,
