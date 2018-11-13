@@ -391,24 +391,24 @@ describe('Object', function() {
         });
 
         it('should fail update with invalid field', function(done) {
-            var obj = {
-                schemaId: schemaData.id,
-                fields: {}
-            };
+            var obj=objects[1];
+            obj.fields[schemaFields.circulation.col]='17923212.890000';
 
-            obj.fields[schemaFields.name.col]='Bitcoin';
-            obj.fields[schemaFields.ticker.col]='BTC';
-            obj.fields[schemaFields.price.col]='6542.10';
-            obj.fields[schemaFields.circulation.col]='17923212.89';
-
-            schemaAPI.addObject(authData.reqToken, obj)
+            objAPI.update(authData.reqToken, obj)
             .then(function (Resp) {
-                if (Resp.fields[schemaFields.patt.col]!=schemaFields.patt.defaultVal) {
-                    done(Resp);
-                } else {
+                done(Resp);
+            }, function (Resp){
+                var err=Resp.errors;
+                var col=schemaFields.circulation.col;
+                var col_name=schemaFields.circulation.label;
+                var msg_err = col_name+'['+col+'] is not a valid decimal';
+
+                if (err&&err.length>0&&err[0]==msg_err) {
                     done();
-                }
-            }, done);
+                } else {
+                    done(Resp);
+                }    
+            });
         });
     });
 });
