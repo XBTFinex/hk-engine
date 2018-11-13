@@ -2,6 +2,7 @@ const fetch=require('node-fetch');
 const moment=require('moment');
 const _=require('underscore');
 
+// TODO: must sync this with the java class
 // public static final String STRING="string";
 // public static final String DECIMAL="decimal";
 // public static final String INTEGER="integer";
