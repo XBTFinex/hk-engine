@@ -85,6 +85,7 @@ U.token().then(function (Auth) {
     schemaAPI.create(Auth.reqToken, schemaData)
     .then(function (sData) {
         schemaData=sData;
+
         console.info("Created schema %o", sData);
 
         var fieldsAry = Object.keys(schemaFields).map(function (K){
