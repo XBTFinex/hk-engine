@@ -9,6 +9,7 @@ i am using hk-engine to
     handle user issues
     automate customer support
     increase customer engagement
+    automate email marketing
     influence customer psycology thru obscure tricks :D
     test all the infraestructure api thru automated tests
 
