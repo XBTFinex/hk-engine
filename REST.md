@@ -11,7 +11,7 @@ curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"name":"Apple"}' http://localhost:8080/api/v1/product
 
-# fetch the products
+# FETCH the products
 curl http://localhost:8080/api/v1/product
 
 [

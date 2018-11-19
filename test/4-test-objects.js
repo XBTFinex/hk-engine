@@ -49,7 +49,8 @@ var schemaFields = {
         type: fieldAPI.TYPE.STRING,
         label: 'Patt',
         pattern: '\\d\\d',
-        defaultVal: '12'
+        defaultVal: '12',
+        orderX: 5
     },
 };
 

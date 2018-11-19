@@ -12,7 +12,6 @@ const user = {
     password: 'Password01'
 };
 
-
 function loginAndSaveToken() {
     return new Promise(function (resolve, reject){    
         api.signin(user)

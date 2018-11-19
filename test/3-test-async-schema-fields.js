@@ -20,60 +20,72 @@ var schemaFields = {
     price: {
         type: fieldAPI.TYPE.DECIMAL,
         label: 'Price',
-        required: true
+        required: true,
+        orderX: 4
     },
     currency: {
         type: fieldAPI.TYPE.STRING,
         label: 'Currency',
-        required: true
+        required: true,
+        orderX: 2
     },
     amount: {
         type: fieldAPI.TYPE.DECIMAL,
         label: 'Amount',
         min: 1,
         max: 1000,
-        required: true
+        required: true,
+        orderX: 3
     },
     maturity: {
         type: fieldAPI.TYPE.DATE,
         label: 'Maturity',
         pattern: 'DD/MM/YYYY',
-        required: true
+        required: true,
+        orderX: 5
     },
     entity: {
         type: fieldAPI.TYPE.STRING,
         label: 'Entity',
-        required: true
+        required: true,
+        orderX: 1
     },
     yield: {
         type: fieldAPI.TYPE.DECIMAL,
         label: 'Yield',
-        required: true
+        required: true,
+        orderX: 6
     },
     description: {
         type: fieldAPI.TYPE.STRING,
         label: 'Decimal',
-        required: true
+        required: true,
+        orderX: 7
     },
     last: {
         type: fieldAPI.TYPE.DECIMAL,
-        label: 'Last Price'
+        label: 'Last Price',
+        orderX: 9
     },
     open: {
         type: fieldAPI.TYPE.DECIMAL,
-        label: 'Open Price'
+        label: 'Open Price',
+        orderX: 8
     },
     close: {
         type: fieldAPI.TYPE.DECIMAL,
-        label: 'Close Price'
+        label: 'Close Price',
+        orderX: 10
     },
     high: {
         type: fieldAPI.TYPE.DECIMAL,
-        label: 'High Price'
+        label: 'High Price',
+        orderX: 11
     },
     low: {
         type: fieldAPI.TYPE.DECIMAL,
-        label: 'Low Price'
+        label: 'Low Price',
+        orderX: 12
     }
 };
 
