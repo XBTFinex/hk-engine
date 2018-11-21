@@ -56,7 +56,6 @@ function loginAndSaveToken() {
 function main(auth) {
     var args=utils.parseArguments();
     var endpoint='http://127.0.0.1:5000/api/v1/';
-
     if (args.endpoint) {
         endpoint=args.endpoint;
     }
