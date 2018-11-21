@@ -22,15 +22,14 @@ Getting started
 
 Architecture
 ====
-(Soon)
+(TODO)
 
 Tools
 ====
-(Soon)
+(TODO)
 
 Tests
 ====
-
     npm test
 
 Conceptualy
