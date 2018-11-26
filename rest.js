@@ -47,7 +47,9 @@ function loginAndSaveToken() {
                 }
 
                 console.log("[INFO] saved token.");
+
                 resolve(auth);
+
             }, reject);
         }, reject);
     })
