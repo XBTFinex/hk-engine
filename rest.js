@@ -115,10 +115,14 @@ function main(auth) {
             }
         }, function (Err) {
             console.log('[WARN] Could parse response');
+
             console.log('[WARN] %o', Err);
         });
     }, function (Error) {
+
         console.log('[ERROR] Could make request');
+        
         console.log('[ERROR] %o', Error);
+
     });
 }
