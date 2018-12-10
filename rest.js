@@ -110,7 +110,6 @@ function main(auth) {
                 console.info('[RESP:json] %o', json);
             } catch (e) {                
                 console.log('[WARN] Could parse json');
-
                 console.log('[WARN] HTTP Response "%s"', text);
             }
 
