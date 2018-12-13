@@ -105,11 +105,14 @@ function main(auth) {
     .then(function (Data){
         Data.text()
         .then(function (text) {
+
             try {
                 var json=JSON.parse(text);
+
                 console.info('[RESP:json] %o', json);
             } catch (e) {                
                 console.log('[WARN] Could parse json');
+
                 console.log('[WARN] HTTP Response "%s"', text);
             }
 
