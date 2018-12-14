@@ -1,0 +1,27 @@
+I am a software engineer with over 7 years of experience designing, building
+and testing platforms and apis using a variety of frameworks, languages and
+architectures. My main platforms for implementation and prototyping are the
+JVM (Java, Scala), NodeJS, React and Angular. My most prominent and advocated
+architectures are REST APIs, TDD and recently i've been interested on
+researching and learning more about microservices.
+
+After 2 years of research into distributed systems and resilient networks i
+end up discovering the bitcoin network and everything changed since them. I am
+convinced the world will end up switching to these distributed networks that
+delivers value through community collaboration with protection via chains of
+cryptographic signatures - blockchain, and the main impact will be on the
+financial industries, with increased transparency, reduced settlement time,
+cost and increased access to modern banking for those who cannot afford it.
+
+XBTFinex is a startup that intends to bring the power of blockchain systems,
+the bitcoin and ethereum networks to the financial world, mainly through a
+resilient and connected platform for capital markets that offers novel
+financial instruments, derivative contracts, online trading, fast settlement
+on the blockchain, business intelligence, extensive reports, realtime data
+feeds, and crossborder payments.
+
+Open source drives the way i think, the way i learn and the way i see the
+world.
+I really do believe Open Source applications and Open platforms will be the
+future and lead us to a better use of collective effort.
+
