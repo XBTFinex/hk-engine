@@ -104,6 +104,7 @@ function main(auth) {
     fetch(url, req)
     .then(function (Data){
         Data.text()
+
         .then(function (text) {
 
             try {
