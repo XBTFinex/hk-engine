@@ -121,8 +121,11 @@ function main(auth) {
 
             console.log('[WARN] %o', Err);
         });
+
     }, function (Error) {
+
         console.log('[ERROR] Could make request');
+
         console.log('[ERROR] %o', Error);
     });
 }
