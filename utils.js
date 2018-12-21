@@ -19,11 +19,8 @@ function loginAndSaveToken() {
             fs.writeFile(TOKEN_FILE, JSON.stringify(auth), function(err, data){
 
                 if (err) {
-
                     console.log('[ERROR] Could not write file');
-                    
                     console.log('[ERROR] %o', err);
-
                     process.exit(1);
                 }
 
