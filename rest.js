@@ -107,21 +107,15 @@ function main(auth) {
         .then(function (text) {
             try {
                 var json=JSON.parse(text);
-
                 console.info('[RESP:json] %o', json);
             } catch (e) {                
                 console.log('[WARN] Could parse json');
-
                 console.log('[WARN] HTTP Response "%s"', text);
             }
-
         }, function (Err) {
-
             console.log('[WARN] Could parse response');
-
             console.log('[WARN] %o', Err);
         });
-
     }, function (Error) {
 
         console.log('[ERROR] Could make request');
