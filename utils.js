@@ -47,7 +47,9 @@ function getToken() {
                     resolve(auth);
                 }, function (err) {
                     console.log('[WARN] Bad token. renewing');
+
                     loginAndSaveToken()
+
                     .then(function (auth){
 
                         main(auth);
