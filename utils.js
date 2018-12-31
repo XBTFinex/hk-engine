@@ -48,11 +48,8 @@ function getToken() {
                 }, function (err) {
                     console.log('[WARN] Bad token. renewing');
                     loginAndSaveToken()
-
                     .then(function (auth){
-
                         main(auth);
-
                     }, reject);
                 });
             }
