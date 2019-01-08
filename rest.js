@@ -104,7 +104,6 @@ function main(auth) {
     fetch(url, req)
     .then(function (Data){
         Data.text()
-
         .then(function (text) {
             try {
                 var json=JSON.parse(text);
@@ -115,7 +114,6 @@ function main(auth) {
             }
         }, function (Err) {
             console.log('[WARN] Could parse response');
-
             console.log('[WARN] %o', Err);
         });
     }, function (Error) {
