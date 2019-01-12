@@ -40,8 +40,10 @@ function getToken() {
                 .then(function (auth){
                     resolve(auth);
                 }, reject);
+
             } else {
                 var auth=JSON.parse(buf.toString());
+
                 api.me(auth.reqToken)
                 .then(function(){
                     resolve(auth);
