@@ -102,8 +102,11 @@ function main(auth) {
     console.info('%s %s', method, url);
 
     fetch(url, req)
+
     .then(function (Data){
+
         Data.text()
+
         .then(function (text) {
             try {
                 var json=JSON.parse(text);
