@@ -99,8 +99,6 @@ function main(auth) {
         req.body = args.body;
     }
 
-    console.info('%s %s', method, url);
-
     fetch(url, req)
     .then(function (Data){
         Data.text()
