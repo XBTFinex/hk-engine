@@ -107,11 +107,8 @@ function main(auth) {
                 var json=JSON.parse(text);
                 console.info('[RESP:json] %o', json);
             } catch (e) {                
-
                 console.log('[WARN] Could parse json');
-
                 console.log('[WARN] HTTP Response "%s"', text);
-
             }
         }, function (Err) {
             console.log('[WARN] Could parse response');
