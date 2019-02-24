@@ -116,6 +116,7 @@ function main(auth) {
             }
         }, function (Err) {
             console.log('[WARN] Could parse response');
+
             console.log('[WARN] %o', Err);
         });
     }, function (Error) {
